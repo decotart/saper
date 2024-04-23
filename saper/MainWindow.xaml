@@ -1,0 +1,79 @@
+﻿<Window x:Class="saper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:saper"
+        mc:Ignorable="d"
+        Title="Сапер" Height="900" Width="800">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <Button Content="Start"
+                    FontSize="40"
+                    Click="btnStart_Click"/>
+
+            <Label Grid.Column="1"
+                   Content="Кол-во бомб"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+                   FontSize="20"/>
+
+            <TextBox Grid.Column="1"
+                     FontSize="20"
+                     Height="50"
+                     Width="150"
+                     VerticalAlignment="Bottom"
+                     x:Name="tbBombCount"/>
+
+            <Button Grid.Column="2"
+                    Click="btnDigFlag_Click"
+                    Content="Лопата"
+                    FontSize="30"
+                    x:Name="btnDigFlag"/>
+
+        </Grid>
+
+        <Grid Grid.Row="1" x:Name="gridMap">
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+        </Grid>
+        
+    </Grid>
+</Window>
