@@ -40,6 +40,7 @@ namespace saper
                 if (bombMap[index])
                 {
                     EndGame(false);
+                    ViewLosingMap();
                 }
                 else
                 {
@@ -72,6 +73,27 @@ namespace saper
                 }
             }
             CheckForWinning();
+        }
+
+        public void ViewLosingMap()
+        {
+            int index;
+
+            foreach (Button btn in map)
+            {
+                index = Convert.ToInt32(btn.Name.Trim('q'));
+
+                if (bombMap[index] == true)
+                {
+                    btn.Background = Brushes.Red;
+                    btn.Content = "Б";
+                }
+                else
+                {
+                    btn.Background = Brushes.LightGray;
+                    btn.Content = GetCountOfBombs(index).ToString();
+                }
+            }
         }
 
         List<int> loopList = new List<int>();
@@ -150,10 +172,6 @@ namespace saper
             else
             {
                 MessageBox.Show("Вы проиграли!");
-                foreach (Button b in map)
-                {
-                    b.Visibility = Visibility.Hidden;
-                }
             }
         }
 
