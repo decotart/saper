@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -53,6 +54,9 @@ namespace saper
                     }
                     else
                     {
+                        map[index].IsEnabled = false;
+                        map[index].Background = Brushes.White;
+                        map[index].Content = "";
                         CheckIfCellEmpty(index);
                     }
                 }
@@ -70,35 +74,49 @@ namespace saper
             CheckForWinning();
         }
 
+        List<int> loopList = new List<int>();
+
         public void CheckIfCellEmpty(int index)
         {
-            bool foo = true;
-            map[index].IsEnabled = false;
+            loopList.Add(index);
 
-            List<int> emptyIndexList = new List<int>();
-            emptyIndexList.Add(index);
-
-            //while (foo)
-            //{
-                int counter = 0;
-
-                for (int i = 0; i < pattern.Length; i++)
+            foreach (int i in pattern)
+            {
+                if (index + i >= 0 && index + i <= 99)
                 {
-                    if (GetCountOfBombs(emptyIndexList[counter] + pattern[i]) == 0)
+                    if (GetCountOfBombs(index + i) == 0)
                     {
-                        emptyIndexList.Add(emptyIndexList[counter] + pattern[i]);
+                        if (!loopList.Contains(index + i))
+                        {
+                            loopList.Add(index + i);
 
-                        map[emptyIndexList[counter] + pattern[i]].IsEnabled = false;
-                        map[emptyIndexList[counter] + pattern[i]].Background = Brushes.White;
+                            map[index + i].IsEnabled = false;
+                            map[index + i].Background = Brushes.White;
+                            map[index + i].Content = "";
+
+                            Loop(loopList);
+                        }
+                    }
+                    else
+                    {
+                        map[index + i].Content = GetCountOfBombs(index + i).ToString();
+                        map[index + i].Background = Brushes.White;
+                        map[index + i].Foreground = Brushes.BlueViolet;
+                        map[index + i].IsEnabled = false;
                     }
                 }
+            }
+        }
 
-                counter++;
-                if (counter == emptyIndexList.Count)
-                {
-                    foo = false;
-                }
-            //}
+        public void Loop(List<int> list)
+        {
+            int[] temp = new int[list.Count];
+            temp = list.ToArray();
+
+            foreach (int i in temp)
+            {
+                CheckIfCellEmpty(i);
+            }
         }
 
         public void CheckForWinning()
@@ -173,7 +191,7 @@ namespace saper
                     }
 
                     btn.Name = $"q{i}";
-                    btn.Content = $"{i}";
+                    //btn.Content = $"{i}";
                     btn.FontSize = 30;
                     btn.Click += btnMap_Click;
 
